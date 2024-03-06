@@ -29,12 +29,11 @@ const HomePage = () => {
         {galleries.length > 0 ? (
           <ul>
             {galleries.map((gallery) => (
-              <li key={gallery.id}>{gallery.name}</li> // Primer prikaza imena galerije
-              // Ovde možete dodati dodatne detalje kao što su slike i autor
+              <li key={gallery.id}>{gallery.name}</li> 
             ))}
           </ul>
         ) : (
-          <p>No galleries to display.</p>
+          <p>Login or Register to see galleries.</p>
         )}
       </div>
     </div>
