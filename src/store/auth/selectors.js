@@ -1,0 +1,1 @@
+export const selectIsUserLoggedIn = (state) => state.auth.user !== null;

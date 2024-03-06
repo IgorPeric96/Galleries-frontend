@@ -1,52 +1,48 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logoutUser } from '../store/auth/actions'; // Pretpostavljamo da ovo već postoji
-
+import { logoutUser } from '../store/auth/actions';
+import { selectIsUserLoggedIn } from '../store/auth/selectors'; 
 const Navbar = () => {
-  const isUserLoggedIn = useSelector(state => state.auth.isUserLoggedIn); // Pretpostavka da imate ovo stanje u Redux-u
+  const isUserLoggedIn = useSelector(selectIsUserLoggedIn); 
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    // Ovdje biste mogli dodati logiku za čišćenje lokalnog stanja, redirect, itd.
+    // dodati dodatnu logiku nakon odjave, da ocisti local storage ili redirect.
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">Galleries App</Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/">All Galleries</NavLink>
-            </li>
-            {isUserLoggedIn ? (
-              // Linkovi za ulogovanog korisnika
-              <>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/my-galleries">My Galleries</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/create">Create New Gallery</NavLink>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              // Linkovi za neulogovanog korisnika
-              <>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/login">Login</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/register">Register</NavLink>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
+      <Link className="navbar-brand" to="/">Galleries App</Link>
+      <div className="collapse navbar-collapse">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/">All Galleries</Link>
+          </li>
+          {isUserLoggedIn ? (
+            <>
+              <li className="nav-item">
+                <Link className="nav-link" to="/my-galleries">My Galleries</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/create">Create New Gallery</Link>
+              </li>
+              <li className="nav-item">
+                <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">Login</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">Register</Link>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </nav>
   );

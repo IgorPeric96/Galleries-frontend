@@ -6,6 +6,7 @@ import {
 import AuthService from '../../services/auth.service';
 
 function* loginUserSaga(action) {
+    console.log('Saga pokrenuta za prijavu', action);
     try {
         const user = yield call(AuthService.login, action.payload);
         yield put(loginUserSuccess(user));

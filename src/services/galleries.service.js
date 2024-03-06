@@ -11,14 +11,14 @@ class GalleriesService extends HttpService {
     static getGalleryById(id) {
         return this.request({
             method: "GET",
-            url: `/galleries/${id},`
+            url: `/api/galleries/${id},`
         });
     }
 
     static createGallery(data) {
         return this.request({
             method: "POST",
-            url: `galleries`,
+            url: `/api/galleries`,
             data,
         });
     }
@@ -26,7 +26,7 @@ class GalleriesService extends HttpService {
     static updateGallery(id, data) {
         return this.request({
             method: "PUT",
-            url: `galleries/${id}`,
+            url: `/api/galleries/${id}`,
             data
         });
     }
@@ -34,7 +34,7 @@ class GalleriesService extends HttpService {
     static deleteGallery(id) {
         return this.request({
             method: "DELETE",
-            url: `/galleries/${id}`,
+            url: `/api/galleries/${id}`,
         });
     }
 }

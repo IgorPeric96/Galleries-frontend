@@ -3,19 +3,36 @@ import { useDispatch } from 'react-redux';
 import { registerUserRequest } from '../store/auth/actions';
 
 export const RegisterPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: '',
+        confirm_password: ''
+    });
     const dispatch = useDispatch();
 
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
     const handleSubmit = (e) => {
-        console.log("asdasd")
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert("Password se ne podudara.");
+        if (formData.password !== formData.confirm_password) {
+            alert("Passwords do not match.");
             return;
         }
-        dispatch(registerUserRequest({ email, password }));
+        // dodati dodatnu validaciju ako je potrebno
+        dispatch(registerUserRequest({
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            email: formData.email,
+            password: formData.password
+       
+        }));
     };
 
     return (
@@ -23,11 +40,32 @@ export const RegisterPage = () => {
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
+                    <label>First Name:</label>
+                    <input 
+                        type="text" 
+                        name="first_name"
+                        value={formData.first_name} 
+                        onChange={handleChange} 
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Last Name:</label>
+                    <input 
+                        type="text" 
+                        name="last_name"
+                        value={formData.last_name} 
+                        onChange={handleChange} 
+                        required
+                    />
+                </div>
+                <div>
                     <label>Email:</label>
                     <input 
                         type="email" 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                        name="email"
+                        value={formData.email} 
+                        onChange={handleChange} 
                         required
                     />
                 </div>
@@ -35,8 +73,9 @@ export const RegisterPage = () => {
                     <label>Password:</label>
                     <input 
                         type="password" 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                        name="password"
+                        value={formData.password} 
+                        onChange={handleChange} 
                         required
                     />
                 </div>
@@ -44,8 +83,9 @@ export const RegisterPage = () => {
                     <label>Confirm Password:</label>
                     <input 
                         type="password" 
-                        value={confirmPassword} 
-                        onChange={(e) => setConfirmPassword(e.target.value)} 
+                        name="confirm_password"
+                        value={formData.confirm_password} 
+                        onChange={handleChange} 
                         required
                     />
                 </div>

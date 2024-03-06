@@ -33,7 +33,7 @@ const HomePage = () => {
             ))}
           </ul>
         ) : (
-          <p>Login or Register to see galleries.</p>
+          <p>Loading Galleries</p>
         )}
       </div>
     </div>
