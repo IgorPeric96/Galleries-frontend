@@ -4,7 +4,7 @@ class GalleriesService extends HttpService {
     static getAllGalleries(searchTerm = "") {
         return this.request({
             method: "GET",
-            url: `/galleries?search=${searchTerm}`,
+            url: `/api/galleries?search=${searchTerm}`,
         });
     }
     

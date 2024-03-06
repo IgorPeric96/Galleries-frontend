@@ -1,10 +1,15 @@
-import axios from 'axios';
+import HttpService from './http.service';
 
 const API_URL = 'http://localhost:8000/api'; 
 
-export default class AuthService {
+export default class AuthService extends HttpService {
   static login(credentials) {
-    return axios.post(`${API_URL}/login`, credentials)
+    console.log(credentials)
+    return this.request({
+        url: `${API_URL}/login`,
+        data: credentials,
+        method: "POST"
+    })
       .then(response => {
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
@@ -13,13 +18,28 @@ export default class AuthService {
       });
   }
 
-  static register(userData) {
-    return axios.post(`${API_URL}/register`, userData)
+  static register = async (userData) => {
+    console.log(userData)
+    console.log(this)
+    userData.first_name = "Igor";
+    userData.last_name = "Peric";
+    await this.request({
+        method: "GET",
+        url: "/sanctum/csrf-cookie"
+    })
+    return this.request({
+        url: `${API_URL}/register`,
+        data: userData,
+        method: "POST"
+    })
       .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem('user', JSON.stringify(response.data));
-        }
-        return response.data;
+        console.log(response)
+        
+            this.client.defaults.headers['Authorization'] = `Bearer ${response.access_token}`;
+            
+          localStorage.setItem('user', JSON.stringify(response.user));
+        
+        return response.user;
       });
   }
 

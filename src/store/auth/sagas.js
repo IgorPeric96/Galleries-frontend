@@ -15,6 +15,7 @@ function* loginUserSaga(action) {
 }
 
 function* registerUserSaga(action) {
+    console.log("nvm");
     try {
         const user = yield call(AuthService.register, action.payload);
         yield put(registerUserSuccess(user));

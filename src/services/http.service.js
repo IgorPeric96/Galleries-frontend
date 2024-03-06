@@ -2,10 +2,12 @@ import axios from "axios"
 
 export default class HttpService {
   static client = axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: "http://localhost:8000",
     headers: {
       Accept: "application/json",
     },
+    withCredentials: true,
+    withXSRFToken: true,
   });
 
   static async request({ method, url, data}) {

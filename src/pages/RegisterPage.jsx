@@ -9,6 +9,7 @@ export const RegisterPage = () => {
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
+        console.log("asdasd")
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Password se ne podudara.");

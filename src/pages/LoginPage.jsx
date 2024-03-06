@@ -8,6 +8,7 @@ export const LoginPage = () => {
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
+        console.log("asd");
         e.preventDefault();
         dispatch(loginUserRequest({ email, password }));
     };
